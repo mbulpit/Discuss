@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="errorMessage top">
+        <p>{{errorMessage}}</p>
+    </div>
+    <form *ngIf="signIn" (ngSubmit)="onSignIn()" >
+        <div class="form-field">
+            <label for="email">EMAIL:</label>
+            <input id="email" type="text" [(ngModel)]="userSignInInfo.email" name="email" required>
+        </div>
+        <div class="form-field">
+            <label for="password">PASSWORD:</label>
+            <input id="password" type="password" [(ngModel)]="userSignInInfo.password" name="password" required>
+        </div>
+        <button [disabled]="userSignInInfo.email === '' || userSignInInfo.password === '' " type="submit">SIGN IN</button>
+        <p>OR</p>
+        <button (click)="createAccountToggle($event)">CREATE ACCOUNT</button>
+    </form>
+    <form *ngIf="createAccount" [formGroup]="createAccountForm" (ngSubmit)="onCreateAccount()">
+        <div class="form-field">
+            <label for="displayName">DISPLAY NAME:</label>
+            <input formControlName="displayName" type="text">
+        </div>
+        <div class="form-field">
+            <label for="email">EMAIL:</label>
+            <input formControlName="email" type="text">
+        </div>
+        <div class="form-field">
+            <label for="password">PASSWORD:</label>
+            <input formControlName="password" type="password">
+        </div>
+        <div class="form-field">
+            <label for="confirmedPassword">CONFIRM PASSWORD:</label>
+            <input formControlName="confirmedPassword" type="password">
+        </div>
+        <button type="submit" [disabled]="!createAccountForm.valid">CREATE ACCOUNT</button>
+        <p>OR</p>
+        <button (click)="createAccountToggle($event)">SIGN IN</button>
+    </form>
+
+    <div *ngIf="createAccount" class="formCheck">
+        <ng-container *ngIf="createAccountForm.get('username')?.hasError('required') && createAccountForm.get('username')?.touched">
+            <p>Username is required</p>
+        </ng-container>
+        <ng-container *ngIf="createAccountForm.get('email')?.hasError('required') && createAccountForm.get('email')?.touched">
+            <p>Email is required</p>
+        </ng-container>
+        <ng-container *ngIf="createAccountForm.get('email')?.hasError('invalidEmailFormat') && createAccountForm.get('email')?.touched">
+            <p>Email must be a valid email address</p>
+        </ng-container>
+        <ng-container *ngIf="createAccountForm.get('password')?.hasError('minlength') && createAccountForm.get('password')?.touched">
+            <p>Password must be at least 8 characters</p>
+        </ng-container>
+        <ng-container *ngIf="createAccountForm.hasError('passwordMismatch') && createAccountForm.get('confirmedPassword')?.touched">
+            <p>Passwords must match</p>
+        </ng-container>
+    </div>
+
+
+</div>

@@ -1,0 +1,76 @@
+.container {
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding-top: 150px;
+    background-color: rgb(54, 54, 54);
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+label {
+    color: white;
+    text-align: center;
+    font: 1.5em sans-serif;
+    margin-bottom: 20px;
+}
+
+input {
+    background-color: rgb(54, 54, 54);
+    color: white;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid rgba(188, 101, 217, 0.384);
+    text-align: center;
+    font: 1.25em sans-serif;
+}
+input:focus {
+    outline: none;
+}
+
+button {
+    background-color: rgba(188, 101, 217, 0.384);
+    color: white;
+    width: 100%;
+    height: 30px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 25px;
+}
+button:hover {
+    cursor: pointer;
+}
+button:disabled {
+    opacity: .3;
+    cursor: not-allowed;
+}
+
+p {
+    text-align: center;
+    color: white;
+}
+
+.errorMessage {
+    position: absolute;
+    top: 100px;
+}
+.errorMessage p {
+    color: red;
+    font: 1.25em sans-serif;
+}
+
+.formCheck {
+    position: absolute;
+    top: 800px;
+    font: 1em sans-serif;
+}
+.formCheck p {
+    color: red;
+    font: 1.25em sans-serif;
+}

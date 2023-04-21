@@ -1,0 +1,31 @@
+.container {
+    background-color: rgb(54,54,54);
+    height: calc(100vh - 100px);
+    width: 15vw;
+    border-right: solid rgba(188, 101, 217, 0.384) 10px;;
+}
+ul {
+    padding-top: 20px;
+}
+
+li {
+    color: white;
+    font-size: 1.5em;
+    list-style: none;
+}
+li:hover {
+    cursor: pointer;
+}
+.status {
+    height: 10px;
+    width: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.status.online {
+    background-color: green;
+    border: 1px solid black;
+}

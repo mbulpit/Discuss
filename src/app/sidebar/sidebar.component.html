@@ -1,0 +1,5 @@
+<div class="container">
+    <ul *ngFor="let user of userList">
+        <li><div class="status" [ngClass]="user.signedIn ? 'online' : '' "></div>{{user.displayName}}</li>
+    </ul>
+</div>

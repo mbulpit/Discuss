@@ -1,0 +1,28 @@
+h1 {
+    color: white;
+    margin: 0;
+    padding-left: 10px;
+}
+
+header {
+    border-bottom: solid rgba(188, 101, 217, 0.384) 10px;
+    background-color: rgb(54, 54, 54);
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    font-size: .75em;
+}
+a:hover {
+    cursor: pointer;
+}
+
+p {
+    color: white;
+    font-size: 1.5em;
+}

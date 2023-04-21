@@ -1,0 +1,26 @@
+.container {
+    background-color: rgb(54,54,54);
+    height: calc(100vh - 100px);
+    width: 85vw;
+    display: flex;
+    align-items: end;
+}
+p {
+    color: white;
+    margin: 0;
+}
+button {
+    width: 10%;
+    height: 56px;
+}
+
+textarea {
+    height: 50px;
+    width: 90%;
+}
+
+.message-input {
+    display: flex;
+    align-items: end;
+    width: 100%;
+}
