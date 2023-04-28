@@ -4,7 +4,7 @@
     margin: 0;
     display: flex;
     justify-content: center;
-    padding-top: 150px;
+    padding-top: 300px;
     background-color: rgb(54, 54, 54);
 }
 
@@ -64,7 +64,6 @@ p {
     color: red;
     font: 1.25em sans-serif;
 }
-
 .formCheck {
     position: absolute;
     top: 800px;

@@ -11,8 +11,8 @@ export class AppComponent {
   title = 'discuss';
   activeChat: string = '';
 
-  @HostListener('window:beforeunload', ['$event'])
-  async beforeUnloadHandler(event: any) {
+  @HostListener('window:pagehide', ['$event'])
+  async pageHideHandler(event: any) {
     await this.userService.changeStatus(false);
   }
 
