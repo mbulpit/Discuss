@@ -1,5 +1,5 @@
 <header>
     <h1>DISCUSS</h1>
     <input *ngIf="signedInUser" type="text" placeholder="search">
-    <p *ngIf="signedInUser">{{signedInUser.displayName}} (<a href="#" (click)="onSignOut()"> Sign Out </a>)</p>
+    <p *ngIf="signedInUser">{{signedInUser.displayName}}<br><a href="#" (click)="onSignOut()">(Sign Out)</a></p>
 </header>

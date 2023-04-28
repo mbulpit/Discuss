@@ -30,7 +30,10 @@ export class UserService {
  
   constructor(private http: HttpClient) {
     onAuthStateChanged(this.auth, (user: any) => {
-      if(user) this.signedInUser = user;
+      if(user) {
+        this.signedInUser = user;
+        this.changeStatus(true);
+      }
     })
 
     const q = query(collection(this.db, 'users'));
@@ -96,5 +99,14 @@ export class UserService {
     } catch(error) {
       return error;
     }
+  }
+
+  async changeStatus(status: boolean) {
+    await setDoc(doc(this.db, 'users', this.signedInUser.uid), {
+      displayName: this.signedInUser.displayName,
+      email: this.signedInUser.email,
+      signedIn: status,
+      uid: this.signedInUser.uid
+    });
   }
 }

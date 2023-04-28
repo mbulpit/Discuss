@@ -10,6 +10,7 @@ export class HeaderComponent {
 
 @Input() signedInUser: any;
 
+
 constructor(private user: UserService) {}
 
 async onSignOut() {

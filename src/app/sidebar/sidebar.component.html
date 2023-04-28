@@ -1,5 +1,7 @@
-<div class="container">
-    <ul *ngFor="let user of userList">
-        <li><div class="status" [ngClass]="user.signedIn ? 'online' : '' "></div>{{user.displayName}}</li>
+<div class="container" [@slideInOut]="sidebarState">
+    <div class="slider" (click)="onToggleSidebar()"></div>
+    <h2>Continue chatting with:</h2>
+    <ul>
+        <li *ngFor="let user of userList" (click)="onNameClick(user.displayName)"><div class="status" [ngClass]="user.signedIn ? 'online' : '' "></div>{{user.displayName}}</li>
     </ul>
 </div>

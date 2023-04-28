@@ -1,10 +1,19 @@
 <div class="container">
     <div class="messages">
-
+        <h2 *ngIf="activeChat">This is the beginning of your chat with {{activeChat}}</h2>
+        <ng-container *ngFor="let message of messages">
+            <div class="message">
+                <div class="message-title">
+                    <p class="from">{{message.from === activeChat ? message.from : 'You'}}</p>
+                    <p>{{message.date | date:'short'}}</p>
+                </div>
+                <p>{{message.message}}</p>
+            </div>
+        </ng-container>
     </div>
     <div class="message-input">
-        <textarea rows="2" cols="100"></textarea>
-        <button>Send</button>
+        <input type="text" (keyup.enter)="onSendMessage()" [(ngModel)]="newMessage">
+        <button><span class="material-symbols-outlined">send</span></button>
     </div>
 </div>
 

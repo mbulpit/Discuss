@@ -1,17 +1,30 @@
 .container {
+    position: absolute;
+    top: 0;
     background-color: rgb(54,54,54);
-    height: calc(100vh - 100px);
-    width: 15vw;
-    border-right: solid rgba(188, 101, 217, 0.384) 10px;;
+    height: 100%;
+    width: 85vw;
+    border-right: solid rgba(188, 101, 217, 0.384) 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+h2 {
+    color: rgb(198,198,198);
 }
 ul {
-    padding-top: 20px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 0;
+    padding-bottom: 50px;
 }
 
 li {
     color: white;
     font-size: 1.5em;
-    list-style: none;
+    margin-bottom: 10px;
 }
 li:hover {
     cursor: pointer;
@@ -28,4 +41,15 @@ li:hover {
 .status.online {
     background-color: green;
     border: 1px solid black;
+}
+.slider {
+    height: 50px;
+    width: 20px;
+    background-color: rgba(188, 101, 217, 0.384);
+    position: absolute;
+    top: 400px;
+    right: -30px;
+}
+.slider:hover {
+    cursor: pointer;
 }
