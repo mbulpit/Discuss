@@ -15,9 +15,8 @@ export class AppComponent {
   title = 'discuss';
   activeChat: string = '';
 
-  @HostListener('window:pagehide', ['$event'])
+  
   @HostListener('window:beforeunload', ['$event'])
-  @HostListener('window:unload', ['$event'])
   async setUserOffline(event: any) {
     await this.userService.changeStatus(false);
   }
