@@ -8,13 +8,20 @@ import { MessageService } from './message.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  constructor(private userService: UserService,
+              private messageService: MessageService) {}
+
   title = 'discuss';
   activeChat: string = '';
 
   @HostListener('window:pagehide', ['$event'])
-  async pageHideHandler(event: any) {
+  @HostListener('window:beforeunload', ['$event'])
+  @HostListener('window:unload', ['$event'])
+  async setUserOffline(event: any) {
     await this.userService.changeStatus(false);
   }
+
 
   get usersList() {
     return this.userService.usersList;
@@ -32,8 +39,7 @@ export class AppComponent {
     return this.messageService.messages;
   }
 
-  constructor(private userService: UserService,
-              private messageService: MessageService) {}
+
 
 
   saveMessage(message: string) {

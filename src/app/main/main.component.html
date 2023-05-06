@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="messages">
+    <div class="messages" #messagesContainer>
         <h2 *ngIf="activeChat">This is the beginning of your chat with {{activeChat}}</h2>
         <ng-container *ngFor="let message of messages">
             <div class="message">

@@ -54,20 +54,9 @@ export class UserService {
           }
         })
         this.changeStatus(true);
-
-        window.addEventListener('pagehide', this.pageHideHandler.bind(this));
-        window.addEventListener('beforeunload', this.pageUnloadHandler.bind(this));
       }
     })
 
-   }
-
-   async pageHideHandler(event: any) {
-    await this.changeStatus(false);
-   }
-
-   async pageUnloadHandler(event: any) {
-    await this.changeStatus(false);
    }
 
    async signIn(user: User) {
