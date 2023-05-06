@@ -9,6 +9,7 @@ header {
     top: 0;
     left: 0;
     right: 0;
+    padding-bottom: 20px;
     z-index: 9999;
     border-bottom: solid rgba(188, 101, 217, 0.384) 10px;
     background-color: rgb(54, 54, 54);
@@ -40,14 +41,50 @@ p {
     flex-direction: column;
     justify-content: center;
 }
-input {
-    border: none;
-    height: 40px;
+.search-container {
+    position: relative;
+    display: inline-block;
     width: 200px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding-left: 10px;
-}
-input:focus {
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px 0px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  input:focus {
     outline: none;
-}
+  }
+  
+  ul {
+    list-style: none;
+    width: calc(100% + 10px);
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  li {
+    width: calc(100% - 10px);
+    padding: 10px 0px 10px 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  li:hover {
+    background-color: #f5f5f5;
+  }
+  
+  li:last-child {
+    border-bottom: none;
+  }

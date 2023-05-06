@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { UserService } from '../user.service';
 
@@ -22,7 +22,10 @@ import { UserService } from '../user.service';
 export class SidebarComponent {
 
   constructor(private user: UserService) {}
-  @Output() activeChat: EventEmitter<any> = new EventEmitter();
+  @Output() activeChatChange: EventEmitter<any> = new EventEmitter();
+  @Output() removeDm: EventEmitter<any> = new EventEmitter();
+  @Input() dms: any;
+  @Input() activeChat: string = '';
 
   get userList() {
    return this.user.usersList;
@@ -32,8 +35,13 @@ export class SidebarComponent {
 
   onNameClick(displayName: string) {
     this.onToggleSidebar();
-    this.activeChat.emit(displayName);
+    this.activeChatChange.emit(displayName);
     
+  }
+
+  onCloseClick(dm: string) {
+    this.removeDm.emit(dm);
+    if(dm === this.activeChat) this.activeChatChange.emit('');
   }
 
   onToggleSidebar() {

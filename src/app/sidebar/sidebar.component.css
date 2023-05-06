@@ -1,8 +1,8 @@
 .container {
     position: absolute;
-    top: 0;
+    top: 15vh;
+    bottom: 0;
     background-color: rgb(54,54,54);
-    height: 100%;
     width: 85vw;
     border-right: solid rgba(188, 101, 217, 0.384) 10px;
     display: flex;
@@ -10,6 +10,7 @@
     flex-direction: column;
 }
 h2 {
+    padding-top: 20px;
     color: rgb(198,198,198);
 }
 ul {
@@ -26,7 +27,7 @@ li {
     font-size: 1.5em;
     margin-bottom: 10px;
 }
-li:hover {
+.dm:hover {
     cursor: pointer;
 }
 .status {
@@ -47,9 +48,18 @@ li:hover {
     width: 20px;
     background-color: rgba(188, 101, 217, 0.384);
     position: absolute;
-    top: 400px;
+    top: 50%;
     right: -30px;
+    transform: translateY(-25px);
 }
 .slider:hover {
+    cursor: pointer;
+}
+.close {
+    color: rgb(218, 218, 218);
+    margin-left: 40px;
+    float: right;
+}
+.close:hover {
     cursor: pointer;
 }

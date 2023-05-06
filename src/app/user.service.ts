@@ -8,7 +8,7 @@ import {
   signOut,
   signInWithEmailAndPassword 
 } from 'firebase/auth';
-import { getFirestore, collection, doc, setDoc, query, where, getDocs, onSnapshot } from 'firebase/firestore';
+import { getFirestore, collection, doc, setDoc, query, where, getDocs, onSnapshot, updateDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment'
 
@@ -27,17 +27,11 @@ export class UserService {
   db = getFirestore(this.app);
   signedInUser?: any;
   usersList?: any;
+  dms?: Array<string>;
  
   constructor(private http: HttpClient) {
-    onAuthStateChanged(this.auth, (user: any) => {
-      if(user) {
-        this.signedInUser = user;
-        this.changeStatus(true);
-      }
-    })
-
-    const q = query(collection(this.db, 'users'));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const usersQ = query(collection(this.db, 'users'));
+    const usersUnsubscribe = onSnapshot(usersQ, (querySnapshot) => {
       const list: any = [];
       querySnapshot.forEach((doc) => {
         list.push(doc.data());
@@ -45,17 +39,40 @@ export class UserService {
       this.usersList = list;
     })
 
+    onAuthStateChanged(this.auth, (user: any) => {
+      if(user) {
+        this.signedInUser = user;
+        const dmsQ = query(collection(this.db, 'users'), where('displayName', '==', user.displayName));
+        const dmsUnsubscribe = onSnapshot(dmsQ, (querySnapshot) => {
+          let dms: any;
+          querySnapshot.forEach((doc) => {
+            dms = doc.data()['dms'];
+          });
+          if(typeof dms !== undefined && Array.isArray(dms)) {
+            const dmsWithStatus = this.usersList.filter((user: any) => dms.includes(user.displayName) )
+            this.dms = dmsWithStatus;
+          }
+        })
+        this.changeStatus(true);
+
+        window.addEventListener('pagehide', this.pageHideHandler.bind(this));
+        window.addEventListener('beforeunload', this.pageUnloadHandler.bind(this));
+      }
+    })
+
+   }
+
+   async pageHideHandler(event: any) {
+    await this.changeStatus(false);
+   }
+
+   async pageUnloadHandler(event: any) {
+    await this.changeStatus(false);
    }
 
    async signIn(user: User) {
     try {
       await signInWithEmailAndPassword(this.auth, user.email, user.password);
-      await setDoc(doc(this.db, 'users', this.signedInUser.uid), {
-        displayName: this.signedInUser.displayName,
-        email: this.signedInUser.email,
-        signedIn: true,
-        uid: this.signedInUser.uid
-      });
       return 'success';
     } catch(error: any) {
       console.log(error.code)
@@ -77,8 +94,11 @@ export class UserService {
         displayName: user.displayName,
         email: user.email,
         signedIn: true,
-        uid: loggedInUser.uid
+        uid: loggedInUser.uid,
+        dms: []
       });
+      this.signout();
+      location.reload();
       return 'success';
     } catch(error: any) {
       console.log(error.code);
@@ -89,12 +109,6 @@ export class UserService {
   async signout() {
     try {
       await signOut(this.auth);
-      await setDoc(doc(this.db, 'users', this.signedInUser.uid), {
-        displayName: this.signedInUser.displayName,
-        email: this.signedInUser.email,
-        signedIn: false,
-        uid: this.signedInUser.uid
-      });
       return 'success';
     } catch(error) {
       return error;
@@ -102,11 +116,28 @@ export class UserService {
   }
 
   async changeStatus(status: boolean) {
-    await setDoc(doc(this.db, 'users', this.signedInUser.uid), {
-      displayName: this.signedInUser.displayName,
-      email: this.signedInUser.email,
-      signedIn: status,
-      uid: this.signedInUser.uid
-    });
+     await updateDoc(doc(this.db, 'users', this.signedInUser.uid), {
+       signedIn: status
+     });
+  }
+
+  addToDms(user: string) {
+    const newDmList = this.usersList.filter((userFromList: any) => userFromList.displayName === this.signedInUser.displayName)[0].dms;
+    if(newDmList.includes(user)) {
+      console.log('user is already in list');
+    } else {
+      newDmList.push(user);
+      updateDoc(doc(this.db, 'users', this.signedInUser.uid), {
+        dms: newDmList
+      })
+    }
+  }
+
+  removeDm(user: string) {
+    const currentDms = this.usersList.filter((userFromList: any) => userFromList.displayName === this.signedInUser.displayName)[0].dms;
+    const newDmList = currentDms.filter((dm: string) => dm !== user);
+    updateDoc(doc(this.db, 'users', this.signedInUser.uid), {
+      dms: newDmList
+    } )
   }
 }

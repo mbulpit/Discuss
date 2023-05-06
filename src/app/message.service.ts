@@ -49,4 +49,8 @@ export class MessageService {
       console.log(error);
     }
   }
+
+  clearMessages() {
+    this.messages = [];
+  }
 }

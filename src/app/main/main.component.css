@@ -1,7 +1,9 @@
 .container {
+    position: fixed;
+    top: 15vh;
+    bottom: 0;
     padding: 0;
     background-color: rgb(54,54,54);
-    height: 100%;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -14,6 +16,8 @@ h2 {
     width: 85%;
     height: calc(100% - 50px);
     overflow-y: scroll;
+    padding-left: 50px;
+    padding-top: 20px;
 }
 .messages::-webkit-scrollbar {
     width: 12px;

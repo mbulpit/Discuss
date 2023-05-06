@@ -16,8 +16,16 @@ export class AppComponent {
     await this.userService.changeStatus(false);
   }
 
+  get usersList() {
+    return this.userService.usersList;
+  }
+
   get signedInUser()  {
     return this.userService.signedInUser;
+  }
+
+  get dms() {
+    return this.userService.dms;
   }
 
   get messages() {
@@ -42,7 +50,19 @@ export class AppComponent {
 
   setActiveChat(toUser: string) {
     this.activeChat = toUser;
-    this.messageService.loadMessages(toUser, this.signedInUser.displayName);
+    if(toUser === '') {
+      this.messageService.clearMessages();
+    } else {
+      this.messageService.loadMessages(toUser, this.signedInUser.displayName);
+    }
+  }
+
+  addToDms(user: string) {
+    this.userService.addToDms(user);
+  }
+
+  removeDm(user: string) {
+    this.userService.removeDm(user);
   }
 
 }

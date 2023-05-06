@@ -1,5 +1,10 @@
 <header>
     <h1>DISCUSS</h1>
-    <input *ngIf="signedInUser" type="text" placeholder="search">
+    <div class="search-container">
+    <input *ngIf="signedInUser" type="text" placeholder="search users" [(ngModel)]="searchQuery" (ngModelChange)="onSearchQueryChange()">
+    <ul *ngIf="searchResults.length > 0 && searchQuery.length !== 0">
+        <li *ngFor="let user of searchResults" (click)="addToDms(user.displayName)" >{{user.displayName}}</li>
+    </ul>
+    </div>
     <p *ngIf="signedInUser">{{signedInUser.displayName}}<br><a href="#" (click)="onSignOut()">(Sign Out)</a></p>
 </header>

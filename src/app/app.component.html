@@ -1,6 +1,6 @@
-<app-header [signedInUser]="signedInUser"></app-header>
+<app-header [usersList]="usersList" [signedInUser]="signedInUser" (addDM)="addToDms($event)"></app-header>
 <ng-container *ngIf="signedInUser">
   <app-main [messages]="messages" [activeChat]="activeChat" (sendMessage)="saveMessage($event)"></app-main>
-  <app-sidebar (activeChat)="setActiveChat($event)"></app-sidebar>
+  <app-sidebar [dms]="dms" [activeChat]="activeChat" (removeDm)="removeDm($event)" (activeChatChange)="setActiveChat($event)"></app-sidebar>
 </ng-container>
 <app-sign-in *ngIf="!signedInUser"></app-sign-in>
