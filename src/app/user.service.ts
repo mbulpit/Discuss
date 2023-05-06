@@ -53,7 +53,6 @@ export class UserService {
             this.dms = dmsWithStatus;
           }
         })
-        this.changeStatus(true);
       }
     })
 
@@ -62,6 +61,7 @@ export class UserService {
    async signIn(user: User) {
     try {
       await signInWithEmailAndPassword(this.auth, user.email, user.password);
+      await this.changeStatus(true);
       return 'success';
     } catch(error: any) {
       console.log(error.code)
@@ -98,6 +98,7 @@ export class UserService {
   async signout() {
     try {
       await signOut(this.auth);
+      await this.changeStatus(false);
       return 'success';
     } catch(error) {
       return error;
