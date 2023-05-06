@@ -48,10 +48,7 @@ export class UserService {
           querySnapshot.forEach((doc) => {
             dms = doc.data()['dms'];
           });
-          if(typeof dms !== undefined && Array.isArray(dms)) {
-            const dmsWithStatus = this.usersList.filter((user: any) => dms.includes(user.displayName) )
-            this.dms = dmsWithStatus;
-          }
+          this.dms = dms;
         })
       }
     })
@@ -61,7 +58,6 @@ export class UserService {
    async signIn(user: User) {
     try {
       await signInWithEmailAndPassword(this.auth, user.email, user.password);
-      await this.changeStatus(true);
       return 'success';
     } catch(error: any) {
       console.log(error.code)
@@ -82,7 +78,6 @@ export class UserService {
       await setDoc(doc(this.db, 'users', loggedInUser.uid), {
         displayName: user.displayName,
         email: user.email,
-        signedIn: true,
         uid: loggedInUser.uid,
         dms: []
       });
@@ -98,17 +93,10 @@ export class UserService {
   async signout() {
     try {
       await signOut(this.auth);
-      await this.changeStatus(false);
       return 'success';
     } catch(error) {
       return error;
     }
-  }
-
-  async changeStatus(status: boolean) {
-     await updateDoc(doc(this.db, 'users', this.signedInUser.uid), {
-       signedIn: status
-     });
   }
 
   addToDms(user: string) {

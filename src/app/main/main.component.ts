@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, Input, ElementRef, ViewChild, SimpleChanges } from '@angular/core';
+
 
 @Component({
   selector: 'app-main',
@@ -6,26 +7,27 @@ import { Component, EventEmitter, Output, Input, OnInit, ElementRef, ViewChild }
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-  @ViewChild('messagesContainer') messagesContainer!: ElementRef;
+  @ViewChild('messagesContainer', {static: true}) messagesContainer!: ElementRef;
 
   @Output() sendMessage: EventEmitter<any> = new EventEmitter();
   @Input() activeChat: string = '';
   @Input() messages: any;
 
-  ngOnInit() {
-    this.scrollToBottom();
-
-    this.messages.changes.subscribe(() => {
-      this.scrollToBottom();
-    })
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['messages']) {
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 0);
+    }
+  
   }
 
   newMessage = '';
 
   scrollToBottom() {
-    if(this.messagesContainer) {
-      this.messagesContainer.nativeElement.scrollToTop = this.messagesContainer.nativeElement.scrollHeight;
-    }
+    console.log('scrollToBottom called');
+    const container = this.messagesContainer.nativeElement;
+    container.scrollTop = container.scrollHeight;
   }
 
   onSendMessage() {

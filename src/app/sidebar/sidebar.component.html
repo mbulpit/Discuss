@@ -3,9 +3,8 @@
     <h2>Continue chatting with:</h2>
     <ul>
         <li *ngFor="let dm of dms">
-            <div class="status" [ngClass]="dm.signedIn ? 'online' : '' "></div>
-            <span class="dm" (click)="onNameClick(dm.displayName)">{{dm.displayName}}</span>
-            <span class="close" (click)="onCloseClick(dm.displayName)">x</span>
+            <span class="dm" (click)="onNameClick(dm)">{{dm}}</span>
+            <span class="close" (click)="onCloseClick(dm)">x</span>
         </li>
     </ul>
 </div>

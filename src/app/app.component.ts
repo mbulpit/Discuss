@@ -15,13 +15,6 @@ export class AppComponent {
   title = 'discuss';
   activeChat: string = '';
 
-  
-  @HostListener('window:beforeunload', ['$event'])
-  async setUserOffline(event: any) {
-    await this.userService.changeStatus(false);
-  }
-
-
   get usersList() {
     return this.userService.usersList;
   }
